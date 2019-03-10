@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:7071/api
+
+###
+#
+POST {{baseUrl}}/SetCommonStaticClassValue
+
+12
+
+###
+#
+GET {{baseUrl}}/GetCommonStaticClassValue
