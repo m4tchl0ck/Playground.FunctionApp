@@ -9,3 +9,8 @@ POST {{baseUrl}}/SetCommonStaticClassValue
 ###
 #
 GET {{baseUrl}}/GetCommonStaticClassValue
+
+
+###
+#
+GET {{baseUrl}}/UseSomeService
