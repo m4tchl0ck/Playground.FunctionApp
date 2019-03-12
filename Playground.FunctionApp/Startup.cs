@@ -12,6 +12,7 @@ namespace Playground.FunctionApp
         public void Configure(IWebJobsBuilder builder)
         {
             builder.Services.AddSingleton<ISomeService, SomeService>();
+            builder.Services.AddSingleton<IBindingProvider, SomeServiceBindingProvider>();
         }
     }
 }
