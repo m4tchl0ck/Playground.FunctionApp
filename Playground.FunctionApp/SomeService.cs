@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace Playground.FunctionApp
@@ -21,11 +22,7 @@ namespace Playground.FunctionApp
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            log.LogInformation("Started doing something");
-
             someService.DoSomething();
-
-            log.LogInformation("Finished doing something");
 
             return new OkResult();
         }
@@ -33,9 +30,20 @@ namespace Playground.FunctionApp
 
     public class SomeService : ISomeService
     {
+        private readonly ILogger _log;
+
+        public SomeService(ILoggerFactory loggerFactory)
+        {
+            _log = loggerFactory.CreateLogger("bla bla");
+        }
+
         public void DoSomething()
         {
+            _log.LogInformation("Started doing something");
+
             Thread.Sleep(5000);
+
+            _log.LogInformation("Finished doing something");
         }
     }
 
