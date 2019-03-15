@@ -4,12 +4,15 @@
 #
 POST {{baseUrl}}/SetCommonStaticClassValue
 
-12
+123
 
 ###
 #
 GET {{baseUrl}}/GetCommonStaticClassValue
 
+###
+#
+GET {{baseUrl}}/UseSomeService
 
 ###
 #
@@ -18,3 +21,12 @@ GET {{baseUrl}}/UseSomeService
 ###
 #
 GET {{baseUrl}}/GetSomeOptionValue
+
+###
+#
+POST {{baseUrl}}/LogWithSerilog
+
+{
+    "text": "some-text",
+    "number": 32
+}
