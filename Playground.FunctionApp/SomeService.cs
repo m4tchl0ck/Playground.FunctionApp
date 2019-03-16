@@ -30,10 +30,12 @@ namespace Playground.FunctionApp
 
     public class SomeService : ISomeService
     {
+        private readonly SomeOption _someOption;
         private readonly ILogger _log;
 
-        public SomeService(ILoggerFactory loggerFactory)
+        public SomeService(SomeOption someOption, ILoggerFactory loggerFactory)
         {
+            _someOption = someOption;
             _log = loggerFactory.CreateLogger("bla bla");
         }
 
@@ -45,10 +47,16 @@ namespace Playground.FunctionApp
 
             _log.LogInformation("Finished doing something");
         }
+
+        public SomeOption GetSomeOption()
+        {
+            return _someOption;
+        }
     }
 
     public interface ISomeService
     {
         void DoSomething();
+        SomeOption GetSomeOption();
     }
 }

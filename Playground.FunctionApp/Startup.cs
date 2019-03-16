@@ -1,6 +1,7 @@
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Playground.FunctionApp;
 
@@ -11,8 +12,12 @@ namespace Playground.FunctionApp
     {
         public void Configure(IWebJobsBuilder builder)
         {
-            builder.Services.AddSingleton<ISomeService, SomeService>();
-            builder.Services.AddSingleton<IBindingProvider, SomeServiceBindingProvider>();
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            builder.Services.AddSomething(config);
         }
     }
 }

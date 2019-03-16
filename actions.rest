@@ -14,3 +14,7 @@ GET {{baseUrl}}/GetCommonStaticClassValue
 ###
 #
 GET {{baseUrl}}/UseSomeService
+
+###
+#
+GET {{baseUrl}}/GetSomeOptionValue
