@@ -9,6 +9,8 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Logging;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Playground.FunctionApp
 {
@@ -41,11 +43,26 @@ namespace Playground.FunctionApp
 
         public void DoSomething()
         {
-            _log.LogInformation("Started doing something");
+            _log.LogInformation("Before First Scope");
+            using (_log.BeginScopeWithProperties(("SomeProperty1", "some-value-1")))
+            {
+                _log.LogInformation("Before Second Scope");
+                using (_log.BeginScopeWithProperties(("SomeProperty2", "some-value-2")))
+                {
+                    _log.LogInformation("Before Third Scope");
+                    using (_log.BeginScopeWithProperties(("SomeProperty3", "some-value-3"), ("SomeProperty4", "some-value-4")))
+                    {
+                        _log.LogInformation("Started doing something");
 
-            Thread.Sleep(5000);
+                        Thread.Sleep(5000);
 
-            _log.LogInformation("Finished doing something");
+                        _log.LogInformation("Finished doing something");
+                    }
+                    _log.LogInformation("After Third Scope");
+                }
+                _log.LogInformation("After Second Scope");
+            }
+            _log.LogInformation("After First Scope");
         }
 
         public SomeOption GetSomeOption()
